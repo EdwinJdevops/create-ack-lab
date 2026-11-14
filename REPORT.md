@@ -21,3 +21,7 @@ The PR adds the option in the generator template for resources with a name initi
 Docker is installed in WSL, but its daemon was inactive and kubectl had no configured contexts during verification. No provider process, cluster or AWS endpoint participated in the reference replay. Provider generation, compilation and restart traces remain pending.
 
 Start with an uninterrupted v2.9.0 Table create/read against an emulator in an isolated cluster. Record build digests and pin the comparison revisions, including main at 80fc406268c7c82805e8f1660b5aad32683f239b and PR head 31dd204. Compare the release, main and regenerated patch against the same desired resources. Independently inspect annotations and emulator inventory before restart. Record attempts and committed writes separately. Include the pending-write response loss, no-forward control, committed cloud response loss, stale read, same-name foreign object and provider-assigned ID cases. Attribute outcomes only after verifying each boundary and independently rerunning any apparent regression.
+
+## Local environment follow-up
+
+Docker 29.1.3 ran a smoke-test container in WSL. A loopback-only DynamoDB Local container using the image digest pinned in emulator-check.sh returned an empty inventory, accepted CreateTable, returned ACTIVE from DescribeTable, and then listed exactly ack-baseline. The commands used dummy credentials and addressed the emulator directly. This verifies the emulator API baseline. The Crossplane managed-resource baseline and restart comparison are still pending.
