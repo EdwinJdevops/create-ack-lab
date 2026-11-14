@@ -1,0 +1,1147 @@
+{
+  "system": "reference-fixture",
+  "runs": [
+    {
+      "case": "normal",
+      "boundary": "none",
+      "policy": "recover-named",
+      "identifiers": "named",
+      "cut": null,
+      "final": {
+        "phase": "ready",
+        "external_id": "sample-table",
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "created",
+      "verdict": "converged",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "create_requested"
+        },
+        {
+          "seq": 5,
+          "event": "create_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 6,
+          "event": "ready_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 7,
+          "event": "worker_result",
+          "attempt": 1,
+          "outcome": "created"
+        },
+        {
+          "seq": 8,
+          "event": "oracle_at_end",
+          "phase": "ready",
+          "external_id": "sample-table",
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "pending-write-ack-lost-stall",
+      "boundary": "pending-committed",
+      "policy": "stop",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "final": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "worker_result": "blocked-ambiguous",
+      "verdict": "blocked-before-external-create",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "ack_withheld",
+          "boundary": "pending-committed"
+        },
+        {
+          "seq": 5,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        },
+        {
+          "seq": 6,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 7,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 8,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "blocked-ambiguous"
+        },
+        {
+          "seq": 9,
+          "event": "oracle_at_end",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        }
+      ]
+    },
+    {
+      "case": "pending-write-ack-lost-recover",
+      "boundary": "pending-committed",
+      "policy": "recover-named",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "final": {
+        "phase": "ready",
+        "external_id": "sample-table",
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "created",
+      "verdict": "converged",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "ack_withheld",
+          "boundary": "pending-committed"
+        },
+        {
+          "seq": 5,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        },
+        {
+          "seq": 6,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 7,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 8,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 9,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 10,
+          "event": "create_requested"
+        },
+        {
+          "seq": 11,
+          "event": "create_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 12,
+          "event": "ready_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 13,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "created"
+        },
+        {
+          "seq": 14,
+          "event": "oracle_at_end",
+          "phase": "ready",
+          "external_id": "sample-table",
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "create-never-forwarded-stall",
+      "boundary": "create-not-forwarded",
+      "policy": "stop",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "final": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "worker_result": "blocked-ambiguous",
+      "verdict": "blocked-before-external-create",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "create_requested"
+        },
+        {
+          "seq": 5,
+          "event": "ack_withheld",
+          "boundary": "create-not-forwarded"
+        },
+        {
+          "seq": 6,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        },
+        {
+          "seq": 7,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 8,
+          "event": "create_discarded"
+        },
+        {
+          "seq": 9,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 10,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "blocked-ambiguous"
+        },
+        {
+          "seq": 11,
+          "event": "oracle_at_end",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        }
+      ]
+    },
+    {
+      "case": "create-never-forwarded-recover",
+      "boundary": "create-not-forwarded",
+      "policy": "recover-named",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "final": {
+        "phase": "ready",
+        "external_id": "sample-table",
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "created",
+      "verdict": "converged",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "create_requested"
+        },
+        {
+          "seq": 5,
+          "event": "ack_withheld",
+          "boundary": "create-not-forwarded"
+        },
+        {
+          "seq": 6,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        },
+        {
+          "seq": 7,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 8,
+          "event": "create_discarded"
+        },
+        {
+          "seq": 9,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 10,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 11,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 12,
+          "event": "create_requested"
+        },
+        {
+          "seq": 13,
+          "event": "create_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 14,
+          "event": "ready_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 15,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "created"
+        },
+        {
+          "seq": 16,
+          "event": "oracle_at_end",
+          "phase": "ready",
+          "external_id": "sample-table",
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "create-committed-stall",
+      "boundary": "create-committed",
+      "policy": "stop",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "final": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "blocked-ambiguous",
+      "verdict": "blocked-with-external-resource",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "create_requested"
+        },
+        {
+          "seq": 5,
+          "event": "create_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 6,
+          "event": "ack_withheld",
+          "boundary": "create-committed"
+        },
+        {
+          "seq": 7,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        },
+        {
+          "seq": 8,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 9,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 10,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "blocked-ambiguous"
+        },
+        {
+          "seq": 11,
+          "event": "oracle_at_end",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "create-committed-adopt",
+      "boundary": "create-committed",
+      "policy": "recover-named",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "final": {
+        "phase": "ready",
+        "external_id": "sample-table",
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "observed-existing",
+      "verdict": "converged",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "create_requested"
+        },
+        {
+          "seq": 5,
+          "event": "create_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 6,
+          "event": "ack_withheld",
+          "boundary": "create-committed"
+        },
+        {
+          "seq": 7,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        },
+        {
+          "seq": 8,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 9,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 10,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": true
+        },
+        {
+          "seq": 11,
+          "event": "ready_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 12,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "observed-existing"
+        },
+        {
+          "seq": 13,
+          "event": "oracle_at_end",
+          "phase": "ready",
+          "external_id": "sample-table",
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "create-committed-hidden-read",
+      "boundary": "create-committed",
+      "policy": "recover-named",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "final": {
+        "phase": "ready",
+        "external_id": "sample-table",
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "observed-after-conflict",
+      "verdict": "converged",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "create_requested"
+        },
+        {
+          "seq": 5,
+          "event": "create_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 6,
+          "event": "ack_withheld",
+          "boundary": "create-committed"
+        },
+        {
+          "seq": 7,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        },
+        {
+          "seq": 8,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 9,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 10,
+          "event": "describe_hidden_committed_resource",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 11,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 12,
+          "event": "create_requested"
+        },
+        {
+          "seq": 13,
+          "event": "create_conflict",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 14,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": true
+        },
+        {
+          "seq": 15,
+          "event": "ready_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 16,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "observed-after-conflict"
+        },
+        {
+          "seq": 17,
+          "event": "oracle_at_end",
+          "phase": "ready",
+          "external_id": "sample-table",
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "same-name-foreign-resource",
+      "boundary": "pending-committed",
+      "policy": "recover-named",
+      "identifiers": "named",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": []
+      },
+      "final": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "sample-table",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "different-intent"
+          }
+        ]
+      },
+      "worker_result": "blocked-unverified",
+      "verdict": "blocked-with-foreign-resource",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": false
+        },
+        {
+          "seq": 3,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 4,
+          "event": "ack_withheld",
+          "boundary": "pending-committed"
+        },
+        {
+          "seq": 5,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": []
+        },
+        {
+          "seq": 6,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 7,
+          "event": "foreign_resource_committed",
+          "external_id": "sample-table"
+        },
+        {
+          "seq": 8,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 9,
+          "event": "describe",
+          "external_id": "sample-table",
+          "found": true
+        },
+        {
+          "seq": 10,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "blocked-unverified"
+        },
+        {
+          "seq": 11,
+          "event": "oracle_at_end",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "sample-table",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "different-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "opaque-id-safeguard",
+      "boundary": "create-committed",
+      "policy": "recover-named",
+      "identifiers": "assigned",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "assigned-1",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "final": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "assigned-1",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "blocked-ambiguous",
+      "verdict": "blocked-with-external-resource",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 3,
+          "event": "create_requested"
+        },
+        {
+          "seq": 4,
+          "event": "create_committed",
+          "external_id": "assigned-1"
+        },
+        {
+          "seq": 5,
+          "event": "ack_withheld",
+          "boundary": "create-committed"
+        },
+        {
+          "seq": 6,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "assigned-1",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        },
+        {
+          "seq": 7,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 8,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 9,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "blocked-ambiguous"
+        },
+        {
+          "seq": 10,
+          "event": "oracle_at_end",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "assigned-1",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "opaque-id-blind-retry",
+      "boundary": "create-committed",
+      "policy": "retry-all",
+      "identifiers": "assigned",
+      "cut": {
+        "phase": "pending",
+        "external_id": null,
+        "inventory": [
+          {
+            "id": "assigned-1",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "final": {
+        "phase": "ready",
+        "external_id": "assigned-2",
+        "inventory": [
+          {
+            "id": "assigned-1",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          },
+          {
+            "id": "assigned-2",
+            "name": "sample-table",
+            "schema": "partitionKey:S",
+            "intent": "test-intent"
+          }
+        ]
+      },
+      "worker_result": "created",
+      "verdict": "extra-resource",
+      "events": [
+        {
+          "seq": 1,
+          "event": "worker_started",
+          "attempt": 1
+        },
+        {
+          "seq": 2,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 3,
+          "event": "create_requested"
+        },
+        {
+          "seq": 4,
+          "event": "create_committed",
+          "external_id": "assigned-1"
+        },
+        {
+          "seq": 5,
+          "event": "ack_withheld",
+          "boundary": "create-committed"
+        },
+        {
+          "seq": 6,
+          "event": "oracle_at_cut",
+          "phase": "pending",
+          "external_id": null,
+          "inventory": [
+            {
+              "id": "assigned-1",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        },
+        {
+          "seq": 7,
+          "event": "worker_killed",
+          "attempt": 1,
+          "signal": "SIGKILL"
+        },
+        {
+          "seq": 8,
+          "event": "worker_started",
+          "attempt": 2
+        },
+        {
+          "seq": 9,
+          "event": "pending_committed"
+        },
+        {
+          "seq": 10,
+          "event": "create_requested"
+        },
+        {
+          "seq": 11,
+          "event": "create_committed",
+          "external_id": "assigned-2"
+        },
+        {
+          "seq": 12,
+          "event": "ready_committed",
+          "external_id": "assigned-2"
+        },
+        {
+          "seq": 13,
+          "event": "worker_result",
+          "attempt": 2,
+          "outcome": "created"
+        },
+        {
+          "seq": 14,
+          "event": "oracle_at_end",
+          "phase": "ready",
+          "external_id": "assigned-2",
+          "inventory": [
+            {
+              "id": "assigned-1",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            },
+            {
+              "id": "assigned-2",
+              "name": "sample-table",
+              "schema": "partitionKey:S",
+              "intent": "test-intent"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
